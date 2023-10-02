@@ -1,23 +1,79 @@
+import 'dart:convert';
+
 import 'package:pharm/app/app.router.dart';
-import 'package:pharm/ui/views/home/home_viewmodel.dart';
+import 'package:pharm/services/api_service_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:pharm/app/app.locator.dart';
+import 'package:http/http.dart' as http;
 
 class LoginViewModel extends FormViewModel {
   final _navigationService = locator<NavigationService>();
   int selectedOption = 2;
   bool isNotValidate = false;
+  late SharedPreferences prefs;
 
-  Future loginToHomepage() async {
-    await HomeViewModel().sidebar();
-    Future.delayed(const Duration(milliseconds: 300));
+  void initSharedPref() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  Future roleLogin(String email, String password) async {
     if (selectedOption == 1) {
-      _navigationService.navigateToDoctorHomeView();
+      patientLogin(email, password);
     } else if (selectedOption == 2) {
-      _navigationService.navigateToHomeView();
+      doctorLogin(email, password);
     }
-    // _navigationService.navigateToHomeView();
+  }
+
+  Future patientLogin(
+    String email,
+    String password,
+  ) async {
+    if (email.isNotEmpty && password.isNotEmpty) {
+      var regBody = {"email": email, "password": password};
+      try {
+        var response = await http.post(
+          Uri.parse(ApiServiceService.patientLogin),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(regBody),
+        );
+
+        var jsonResponse = jsonDecode(response.body);
+        if (jsonResponse["status"] == "true") {
+          var myToken = jsonResponse["token"];
+          prefs.setString("token", myToken);
+          _navigationService.navigateToHomeView(token: myToken);
+        } else {}
+      } on Exception catch (e) {
+        throw (e);
+      }
+    } else {
+      // print("hello");
+      isNotValidate = true;
+      rebuildUi();
+    }
+  }
+
+  Future doctorLogin(String email, String password) async {
+    if (email.isNotEmpty && password.isNotEmpty) {
+      var regBody = {"email": email, "password": password};
+      try {
+        var response = await http.post(
+          Uri.parse(ApiServiceService.doctorLogin),
+          headers: {"Content-Type": "application/json"},
+          body: jsonEncode(regBody),
+        );
+        // print(response.body);
+      } on Exception catch (e) {
+        // TODO
+        throw (e);
+      }
+    } else {
+      // print("hello");
+      isNotValidate = true;
+      rebuildUi();
+    }
   }
 
   Future redirectToSignup() async {
@@ -26,7 +82,7 @@ class LoginViewModel extends FormViewModel {
 
   @override
   void rebuildUi() {
-    // TODO: implement rebuildUi
+    initSharedPref();
     super.rebuildUi();
   }
 }

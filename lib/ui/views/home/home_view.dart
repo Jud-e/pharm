@@ -1,12 +1,15 @@
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:pharm/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({Key? key}) : super(key: key);
+  final token;
+  HomeView(this.token, {Key? key}) : super(key: key);
+  late String email;
 
   @override
   Widget builder(
@@ -71,10 +74,10 @@ class HomeView extends StackedView<HomeViewModel> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          const Align(
+                          Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "Welcome User",
+                              "Welcome ${email}",
                               style: TextStyle(fontSize: 20),
                             ),
                           ),
@@ -337,6 +340,9 @@ class HomeView extends StackedView<HomeViewModel> {
 
   @override
   void onViewModelReady(HomeViewModel viewModel) async {
+    Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(token);
+    email = jwtDecodedToken['email'];
+
     await viewModel.sidebar();
     Future.delayed(const Duration(milliseconds: 300));
     super.onViewModelReady(viewModel);

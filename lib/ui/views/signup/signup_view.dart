@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pharm/ui/common/text_form_field.dart';
+// import 'package:pharm/ui/common/text_form_field.dart';
 import 'package:pharm/ui/common/ui_helpers.dart';
 import 'package:pharm/ui/views/signup/signup_view.form.dart';
 import 'package:stacked/stacked.dart';
@@ -176,6 +176,7 @@ class SignupView extends StackedView<SignupViewModel> with $SignupView {
           } else {
             return SingleChildScrollView(
               child: Container(
+                height: screenHeight(context),
                 decoration: const BoxDecoration(color: Colors.white),
                 child: Padding(
                   padding: const EdgeInsets.all(50.0),
