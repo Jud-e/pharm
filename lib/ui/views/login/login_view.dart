@@ -227,4 +227,11 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
     BuildContext context,
   ) =>
       LoginViewModel();
+
+  @override
+  void onViewModelReady(LoginViewModel viewModel) {
+    // TODO: implement onViewModelReady
+    viewModel.initSharedPref();
+    super.onViewModelReady(viewModel);
+  }
 }

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:pharm/app/app.router.dart';
 import 'package:pharm/services/api_service_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,9 +19,9 @@ class LoginViewModel extends FormViewModel {
 
   Future roleLogin(String email, String password) async {
     if (selectedOption == 1) {
-      patientLogin(email, password);
-    } else if (selectedOption == 2) {
       doctorLogin(email, password);
+    } else if (selectedOption == 2) {
+      patientLogin(email, password);
     }
   }
 
@@ -40,7 +39,7 @@ class LoginViewModel extends FormViewModel {
         );
 
         var jsonResponse = jsonDecode(response.body);
-        if (jsonResponse["status"] == "true") {
+        if (jsonResponse["status"] == true) {
           var myToken = jsonResponse["token"];
           prefs.setString("token", myToken);
           _navigationService.navigateToHomeView(token: myToken);
@@ -49,7 +48,6 @@ class LoginViewModel extends FormViewModel {
         throw (e);
       }
     } else {
-      // print("hello");
       isNotValidate = true;
       rebuildUi();
     }
@@ -64,13 +62,17 @@ class LoginViewModel extends FormViewModel {
           headers: {"Content-Type": "application/json"},
           body: jsonEncode(regBody),
         );
-        // print(response.body);
+        var jsonResponse = jsonDecode(response.body);
+        if (jsonResponse["status"] == true) {
+          var myToken = jsonResponse["token"];
+          prefs.setString("token", myToken);
+          // _navigationService.navigateToDoctorHomeView(token: myToken);
+        }
       } on Exception catch (e) {
         // TODO
         throw (e);
       }
     } else {
-      // print("hello");
       isNotValidate = true;
       rebuildUi();
     }
@@ -82,7 +84,6 @@ class LoginViewModel extends FormViewModel {
 
   @override
   void rebuildUi() {
-    initSharedPref();
     super.rebuildUi();
   }
 }
