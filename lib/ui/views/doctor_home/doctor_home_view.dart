@@ -6,7 +6,8 @@ import 'package:stacked/stacked.dart';
 import 'doctor_home_viewmodel.dart';
 
 class DoctorHomeView extends StackedView<DoctorHomeViewModel> {
-  const DoctorHomeView({Key? key}) : super(key: key);
+  final token;
+  const DoctorHomeView(this.token, {Key? key}) : super(key: key);
 
   @override
   Widget builder(
@@ -28,12 +29,19 @@ class DoctorHomeView extends StackedView<DoctorHomeViewModel> {
                     compactSideMenuWidth: 90),
                 title: Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text(
-                    "Pharm",
-                    style: TextStyle(
-                      fontSize: getResponsiveLargeFontSize(context),
-                    ),
-                  ),
+                  child: screenWidth(context) > 600
+                      ? Text(
+                          "Pharm",
+                          style: TextStyle(
+                            fontSize: getResponsiveLargeFontSize(context),
+                          ),
+                        )
+                      : const Text(
+                          "P",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
                 ),
                 items: [
                   SideMenuItem(
@@ -195,7 +203,7 @@ class DoctorHomeView extends StackedView<DoctorHomeViewModel> {
                         const Text("Manage Appointments"),
                         verticalSpaceMedium,
                         SizedBox(
-                          height: screenHeight(context) * 0.77,
+                          height: 450,
                           child: ListView.separated(
                               separatorBuilder: (context, index) {
                                 return const SizedBox(
@@ -347,6 +355,7 @@ class DoctorHomeView extends StackedView<DoctorHomeViewModel> {
 
   @override
   void onViewModelReady(DoctorHomeViewModel viewModel) async {
+    viewModel.setEmail(token: token);
     await viewModel.sidebar();
     Future.delayed(const Duration(milliseconds: 300));
     super.onViewModelReady(viewModel);

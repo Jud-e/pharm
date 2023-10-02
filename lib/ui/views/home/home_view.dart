@@ -29,12 +29,19 @@ class HomeView extends StackedView<HomeViewModel> {
                       compactSideMenuWidth: 90),
                   title: Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: Text(
-                      "Pharm",
-                      style: TextStyle(
-                        fontSize: getResponsiveLargeFontSize(context),
-                      ),
-                    ),
+                    child: screenWidth(context) > 600
+                        ? Text(
+                            "Pharm",
+                            style: TextStyle(
+                              fontSize: getResponsiveLargeFontSize(context),
+                            ),
+                          )
+                        : const Text(
+                            "P",
+                            style: TextStyle(
+                              fontSize: 30,
+                            ),
+                          ),
                   ),
                   items: [
                     SideMenuItem(
@@ -196,22 +203,17 @@ class HomeView extends StackedView<HomeViewModel> {
                         ),
                         verticalSpaceMedium,
                         SizedBox(
-                          height: screenHeight(context) * 0.8,
+                          height: screenHeight(context) * 0.75,
                           child: ListView.separated(
                               separatorBuilder: (context, index) {
                                 return const SizedBox(
                                   height: 10,
                                 );
                               },
-                              // scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                // return Text("hello $index");
                                 return Container(
-                                  height: 300,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    // border: const Border.fromBorderSide(
-                                    //     BorderSide(color: Colors.black87)),
                                     color: const Color.fromARGB(
                                         255, 231, 230, 230),
                                   ),

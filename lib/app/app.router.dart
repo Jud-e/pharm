@@ -86,8 +86,9 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i6.DoctorHomeView: (data) {
+      final args = data.getArgs<DoctorHomeViewArguments>(nullOk: false);
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i6.DoctorHomeView(),
+        builder: (context) => _i6.DoctorHomeView(args.token, key: args.key),
         settings: data,
       );
     },
@@ -116,6 +117,33 @@ class HomeViewArguments {
 
   @override
   bool operator ==(covariant HomeViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.token == token && other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return token.hashCode ^ key.hashCode;
+  }
+}
+
+class DoctorHomeViewArguments {
+  const DoctorHomeViewArguments({
+    required this.token,
+    this.key,
+  });
+
+  final dynamic token;
+
+  final _i7.Key? key;
+
+  @override
+  String toString() {
+    return '{"token": "$token", "key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant DoctorHomeViewArguments other) {
     if (identical(this, other)) return true;
     return other.token == token && other.key == key;
   }
@@ -186,14 +214,17 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToDoctorHomeView([
+  Future<dynamic> navigateToDoctorHomeView({
+    required dynamic token,
+    _i7.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.doctorHomeView,
+        arguments: DoctorHomeViewArguments(token: token, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -259,14 +290,17 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithDoctorHomeView([
+  Future<dynamic> replaceWithDoctorHomeView({
+    required dynamic token,
+    _i7.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.doctorHomeView,
+        arguments: DoctorHomeViewArguments(token: token, key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

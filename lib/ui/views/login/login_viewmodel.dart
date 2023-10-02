@@ -66,7 +66,7 @@ class LoginViewModel extends FormViewModel {
         if (jsonResponse["status"] == true) {
           var myToken = jsonResponse["token"];
           prefs.setString("token", myToken);
-          // _navigationService.navigateToDoctorHomeView(token: myToken);
+          _navigationService.navigateToDoctorHomeView(token: myToken);
         }
       } on Exception catch (e) {
         // TODO
