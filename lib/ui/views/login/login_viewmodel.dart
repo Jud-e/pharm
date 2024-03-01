@@ -69,7 +69,6 @@ class LoginViewModel extends FormViewModel {
           _navigationService.navigateToDoctorHomeView(token: myToken);
         }
       } on Exception catch (e) {
-        // TODO
         throw (e);
       }
     } else {

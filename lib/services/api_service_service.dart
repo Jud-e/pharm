@@ -6,4 +6,5 @@ class ApiServiceService {
   static const patientRegistration = "$baseUrl${patient}register";
   static const patientLogin = "$baseUrl${patient}login";
   static const doctorLogin = "$baseUrl${doctor}login";
+  static const searchDoctor = "$baseUrl$doctor";
 }
