@@ -17,14 +17,17 @@ class HomeViewModel extends BaseViewModel {
   String? _email;
   String? get email => _email;
 
+  List<DoctorModel> _doctors = [];
+  List<DoctorModel> get doctors => _doctors;
+
   void setEmail({required String token}) {
     Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(token);
     _email = jwtDecodedToken['email'];
   }
 
   Future searchDoctor(String name) async {
-    var doctors = [];
     try {
+      _doctors.clear();
       var response = await http.get(
         Uri.parse(ApiServiceService.searchDoctor + name),
         headers: {"Content-Type": "application/json"},
@@ -34,10 +37,11 @@ class HomeViewModel extends BaseViewModel {
         // final doctorModel = DoctorModel.fromJson(jsonResponse["data"][0]);
         // print(doctorModel.runtimeType);
         for (var doctor in jsonResponse["data"]) {
-          doctors.add(DoctorModel.fromJson(doctor));
-          print(doctors[0].appointment);
+          _doctors.add(DoctorModel.fromJson(doctor));
+          print(_doctors[0]);
         }
-        int length = jsonResponse["data"].length;
+        rebuildUi();
+        int length = doctors.length;
         return length;
       }
     } catch (e) {

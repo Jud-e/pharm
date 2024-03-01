@@ -206,7 +206,7 @@ class HomeView extends StackedView<HomeViewModel> {
                         SizedBox(
                           height: screenHeight(context) * 0.75,
                           child: ListView.separated(
-                            itemCount: 10,
+                            itemCount: viewModel.doctors.length,
                             separatorBuilder: (context, index) {
                               return const SizedBox(
                                 height: 10,
@@ -232,7 +232,7 @@ class HomeView extends StackedView<HomeViewModel> {
                                           ),
                                           horizontalSpaceSmall,
                                           Text(
-                                            "Micheal Jordan $index",
+                                            viewModel.doctors[index].name,
                                           ),
                                         ],
                                       ),
@@ -269,11 +269,17 @@ class HomeView extends StackedView<HomeViewModel> {
                                                           const CircleAvatar(
                                                             radius: 50,
                                                           ),
-                                                          const Text("Name"),
-                                                          const Text(
-                                                              "Specification"),
-                                                          const Text(
-                                                              "Affilation"),
+                                                          Text(viewModel
+                                                              .doctors[index]
+                                                              .name),
+                                                          Text(viewModel
+                                                              .doctors[index]
+                                                              .specification),
+                                                          Text(viewModel
+                                                                  .doctors[
+                                                                      index]
+                                                                  .affilation ??
+                                                              ""),
                                                           const TextField(
                                                             decoration:
                                                                 InputDecoration(
