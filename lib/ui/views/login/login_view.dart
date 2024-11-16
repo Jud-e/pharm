@@ -28,9 +28,9 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: screenWidth(context) * 0.7,
-                  child: Text("testing"),
+                  child: const Text("testing"),
                 ),
                 Container(
                   width: screenWidth(context) * 0.3,

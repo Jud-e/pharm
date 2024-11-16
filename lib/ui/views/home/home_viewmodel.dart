@@ -17,7 +17,7 @@ class HomeViewModel extends BaseViewModel {
   String? _email;
   String? get email => _email;
 
-  List<DoctorModel> _doctors = [];
+  final List<DoctorModel> _doctors = [];
   List<DoctorModel> get doctors => _doctors;
 
   void setEmail({required String token}) {

@@ -48,9 +48,9 @@ class SignupViewModel extends FormViewModel {
           body: jsonEncode(regBody),
         );
         // print(response.body);
-      } on Exception catch (e) {
+      } on Exception {
         // TODO
-        throw (e);
+        rethrow;
       }
     } else {
       // print("hello");

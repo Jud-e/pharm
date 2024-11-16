@@ -15,7 +15,7 @@ class DoctorHomeView extends StackedView<DoctorHomeViewModel> {
     DoctorHomeViewModel viewModel,
     Widget? child,
   ) {
-    final TextEditingController _searchController = TextEditingController();
+    final TextEditingController searchController = TextEditingController();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
@@ -97,13 +97,13 @@ class DoctorHomeView extends StackedView<DoctorHomeViewModel> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 20),
                               child: TextField(
-                                controller: _searchController,
+                                controller: searchController,
                                 decoration: InputDecoration(
                                     hintText: "Search for your appointments...",
                                     suffixIcon: IconButton(
                                       icon: const Icon(Icons.clear),
                                       onPressed: () =>
-                                          _searchController.clear(),
+                                          searchController.clear(),
                                     ),
                                     prefixIcon: IconButton(
                                       icon: const Icon(Icons.search),
@@ -182,12 +182,12 @@ class DoctorHomeView extends StackedView<DoctorHomeViewModel> {
                     child: Column(
                       children: [
                         TextField(
-                          controller: _searchController,
+                          controller: searchController,
                           decoration: InputDecoration(
                               hintText: "Search for your appointments...",
                               suffixIcon: IconButton(
                                 icon: const Icon(Icons.clear),
-                                onPressed: () => _searchController.clear(),
+                                onPressed: () => searchController.clear(),
                               ),
                               prefixIcon: IconButton(
                                 icon: const Icon(Icons.search),

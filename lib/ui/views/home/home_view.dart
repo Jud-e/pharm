@@ -15,7 +15,7 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    final TextEditingController _searchController = TextEditingController();
+    final TextEditingController searchController = TextEditingController();
 
     return Scaffold(
       body: SafeArea(
@@ -83,7 +83,7 @@ class HomeView extends StackedView<HomeViewModel> {
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Welcome ${viewModel.email}",
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                             ),
                           ),
                           verticalSpaceMedium,
@@ -99,12 +99,12 @@ class HomeView extends StackedView<HomeViewModel> {
                                 vertical: 20,
                               ),
                               child: TextField(
-                                controller: _searchController,
+                                controller: searchController,
                                 decoration: InputDecoration(
                                   hintText: "Search for your appointments...",
                                   suffixIcon: IconButton(
                                     icon: const Icon(Icons.clear),
-                                    onPressed: () => _searchController.clear(),
+                                    onPressed: () => searchController.clear(),
                                   ),
                                   prefixIcon: IconButton(
                                     icon: const Icon(Icons.search),
@@ -183,7 +183,7 @@ class HomeView extends StackedView<HomeViewModel> {
                     child: Column(
                       children: [
                         TextField(
-                          controller: _searchController,
+                          controller: searchController,
                           onSubmitted: (name) {
                             viewModel.searchDoctor(name);
                           },
@@ -191,7 +191,7 @@ class HomeView extends StackedView<HomeViewModel> {
                             hintText: "Search for your doctor...",
                             suffixIcon: IconButton(
                               icon: const Icon(Icons.clear),
-                              onPressed: () => _searchController.clear(),
+                              onPressed: () => searchController.clear(),
                             ),
                             prefixIcon: IconButton(
                               icon: const Icon(Icons.search),

@@ -44,8 +44,8 @@ class LoginViewModel extends FormViewModel {
           prefs.setString("token", myToken);
           _navigationService.navigateToHomeView(token: myToken);
         } else {}
-      } on Exception catch (e) {
-        throw (e);
+      } on Exception {
+        rethrow;
       }
     } else {
       isNotValidate = true;
@@ -68,8 +68,8 @@ class LoginViewModel extends FormViewModel {
           prefs.setString("token", myToken);
           _navigationService.navigateToDoctorHomeView(token: myToken);
         }
-      } on Exception catch (e) {
-        throw (e);
+      } on Exception {
+        rethrow;
       }
     } else {
       isNotValidate = true;
@@ -81,8 +81,4 @@ class LoginViewModel extends FormViewModel {
     _navigationService.navigateToSignupView();
   }
 
-  @override
-  void rebuildUi() {
-    super.rebuildUi();
-  }
 }
